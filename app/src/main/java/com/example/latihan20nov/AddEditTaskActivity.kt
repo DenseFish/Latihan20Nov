@@ -6,7 +6,6 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.example.lat20nov.R
 
 class AddEditTaskActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

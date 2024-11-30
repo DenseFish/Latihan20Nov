@@ -12,7 +12,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.lat20nov.R
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
