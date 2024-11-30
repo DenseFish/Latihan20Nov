@@ -3,8 +3,9 @@ package com.example.latihan20nov
 import java.io.Serializable
 
 data class Task(
-    val judul: String,
-    val tanggal: String,
-    val deskripsi: String,
-    var isCompleted: Boolean = false
+    var judul: String,
+    var tanggal: String,
+    var kategori: String,
+    var deskripsi: String,
+    var saved: Boolean = false
 ) : Serializable

@@ -2,7 +2,9 @@ package com.example.latihan20nov
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -58,9 +60,17 @@ class MainActivity : AppCompatActivity() {
         } else if (requestCode == 200 && resultCode == RESULT_OK) {
             val updatedTask = data?.getSerializableExtra("updatedTask") as? Task
             val position = data?.getIntExtra("position", -1) ?: -1
-            if (updatedTask != null && position != -1) {
-                taskList[position] = updatedTask
-                adapter.notifyItemChanged(position)
+
+            if (updatedTask != null) {
+                // Validate position before updating taskList
+                if (position in 0 until taskList.size) {
+                    taskList[position] = updatedTask
+                    adapter.notifyItemChanged(position)
+                } else {
+                    // Handle invalid position (e.g., log an error, show a message)
+                    Log.e("MainActivity", "Invalid position: $position")
+                    Toast.makeText(this, "Error updating task: Invalid position", Toast.LENGTH_SHORT).show()
+                }
             }
         }
     }
