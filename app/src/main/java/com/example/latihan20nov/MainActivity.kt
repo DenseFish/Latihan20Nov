@@ -62,12 +62,12 @@ class MainActivity : AppCompatActivity() {
             val position = data?.getIntExtra("position", -1) ?: -1
 
             if (updatedTask != null) {
-                // Validate position before updating taskList
+                // validasi position before updating taskList
                 if (position in 0 until taskList.size) {
                     taskList[position] = updatedTask
                     adapter.notifyItemChanged(position)
                 } else {
-                    // Handle invalid position (e.g., log an error, show a message)
+                    // Error handle invalid position
                     Log.e("MainActivity", "Invalid position: $position")
                     Toast.makeText(this, "Error updating task: Invalid position", Toast.LENGTH_SHORT).show()
                 }

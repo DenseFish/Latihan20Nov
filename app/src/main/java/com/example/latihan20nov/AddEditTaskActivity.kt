@@ -19,7 +19,7 @@ class AddEditTaskActivity : AppCompatActivity() {
         val btnSimpan = findViewById<Button>(R.id.saveButton)
 
         val task = intent.getSerializableExtra("task") as? Task
-        val position = intent.getIntExtra("position", -1)
+        intent.getIntExtra("position", -1)
 
         // Jika task tidak null, isi input dengan data task
         if (task != null) {
@@ -36,23 +36,23 @@ class AddEditTaskActivity : AppCompatActivity() {
             val taskDesc = inputDeskripsi.text.toString()
 
             if (taskName.isNotEmpty() && taskDate.isNotEmpty() && taskCat.isNotEmpty()) {
-                val existingTask = intent.getSerializableExtra("task") as? Task // Check for existing task
+                val existingTask = intent.getSerializableExtra("task") as? Task // Check task
                 val position = intent.getIntExtra("position", -1)
 
                 if (existingTask != null) {
-                    // Update existing task
+                    // Update task
                     existingTask.judul = taskName
                     existingTask.tanggal = taskDate
                     existingTask.kategori = taskCat
                     existingTask.deskripsi = taskDesc
 
                     val resultIntent = Intent()
-                    resultIntent.putExtra("updatedTask", existingTask) // Use "updatedTask" key
+                    resultIntent.putExtra("updatedTask", existingTask)
                     resultIntent.putExtra("position", position)
                     setResult(RESULT_OK, resultIntent)
                     finish()
                 } else {
-                    // Add new task (existing logic)
+                    // Add new task
                     val newTask = Task(taskName, taskDate, taskCat, taskDesc, false)
                     val resultIntent = Intent()
                     resultIntent.putExtra("newTask", newTask)

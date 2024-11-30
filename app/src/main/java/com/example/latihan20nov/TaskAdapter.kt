@@ -11,7 +11,6 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -37,7 +36,6 @@ class TaskAdapter(
         val btnEdit: Button = itemView.findViewById(R.id.btnUbah)
         val btnStart: Button = itemView.findViewById(R.id.btnKerjakan)
         val btnEnd: Button = itemView.findViewById(R.id.btnSelesai)
-        val cardView: CardView = itemView.findViewById(R.id.cardView)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
@@ -54,20 +52,20 @@ class TaskAdapter(
         holder.category.text = task.kategori
         holder.description.text = task.deskripsi
 
-        // Nonaktifkan listener sementara saat mengatur CheckBox
+        // Save atau remove task dari shared preferences
         holder.saveArrow.setOnClickListener {
             if (task.saved) {
                 task.saved = false // Update task.saved to false
                 removeTaskFromPreferences(task)
                 Toast.makeText(context, "Task removed from bookmark", Toast.LENGTH_SHORT).show()
-            } else { // Use else instead of else if
+            } else {
                 task.saved = true // Update task.saved to true
                 saveTaskToPreferences(task)
                 Toast.makeText(context, "Task saved from bookmark", Toast.LENGTH_SHORT).show()
             }
         }
 
-        // Start
+        // Start button
         holder.btnStart.setOnClickListener {
             Toast.makeText(context, "Task ${task.judul} started!", Toast.LENGTH_SHORT).show()
             holder.btnStart.visibility = View.INVISIBLE
@@ -77,7 +75,7 @@ class TaskAdapter(
             holder.saveArrow.visibility = View.INVISIBLE
         }
 
-        // End
+        // End button
         holder.btnEnd.setOnClickListener {
             Toast.makeText(context, "Task ${task.judul} completed!", Toast.LENGTH_SHORT).show()
             holder.saveArrow.visibility = View.VISIBLE
@@ -87,14 +85,14 @@ class TaskAdapter(
             holder.btnHapus.visibility = View.INVISIBLE
 
         }
-        // Tombol Hapus
+        // Delete button
         holder.btnHapus.setOnClickListener {
             tasks.removeAt(position)
             notifyItemRemoved(position)
             removeTaskFromPreferences(task)
         }
 
-        // Tombol Edit
+        // Edit button
         holder.btnEdit.setOnClickListener {
             val intent = Intent(context, AddEditTaskActivity::class.java)
             intent.putExtra("task", task)
